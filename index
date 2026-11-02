@@ -20,31 +20,58 @@
   <script src="https://unpkg.com/lucide@latest" crossorigin="anonymous"></script>
 
   <style>
+    @font-face {
+      font-family: 'Noto Serif Khmer';
+      src: url('./fonts/NotoSerifKhmer-VariableFont_wdth,wght.ttf') format('truetype');
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
     :root {
-      color-scheme: light;
-      --paper: #f5f2ec;
-      --ink: #29251f;
-      --muted: #827a70;
+      color-scheme: dark;
+      --paper: #33251e;
+      --ink: #f1e4d3;
+      --muted: #bca995;
       --accent: #bd684e;
       --accent-dark: #9e503a;
-      --line: #e9e3da;
+      --line: rgba(235, 211, 186, .2);
     }
 
     .font-bodoni { font-family: 'Bodoni Moda', serif; }
     .font-playfair { font-family: 'Playfair Display', serif; }
     .font-cinzel { font-family: 'Cinzel', serif; }
     .font-caveat { font-family: 'Caveat', cursive; }
+    .postcard-title {
+      font-family: 'Noto Serif Khmer', 'Bodoni Moda', serif;
+      font-size: clamp(1.75rem, 8vw, 3.5rem);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.045em;
+      text-wrap: balance;
+    }
+    .postcard-date {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(.85rem, 2.8vw, 1.15rem);
+      font-weight: 400;
+      letter-spacing: .04em;
+    }
     .font-sans-ui { font-family: 'Plus Jakarta Sans', sans-serif; }
 
     body.app-body {
+      position: relative;
+      isolation: isolate;
       min-height: 100vh;
       height: auto;
       justify-content: flex-start;
       padding: 0 20px 32px;
       color: var(--ink);
       background:
-        radial-gradient(ellipse at 50% -18%, rgba(255,255,255,.95), transparent 58%),
-        var(--paper);
+        radial-gradient(ellipse at 50% 0, rgba(177, 115, 67, .12), transparent 58%),
+        repeating-linear-gradient(0deg, transparent 0 92px, rgba(7, 4, 3, .38) 93px, rgba(198, 147, 101, .08) 95px, transparent 97px),
+        repeating-linear-gradient(90deg, rgba(10, 5, 3, .12) 0 1px, transparent 1px 260px),
+        linear-gradient(115deg, #302019, #40291e 48%, #332219);
+      background-attachment: fixed;
     }
 
     .brand-header {
@@ -54,7 +81,7 @@
       gap: 11px;
       margin: 0 auto;
       padding: 22px 4px 17px;
-      border-bottom: 1px solid rgba(112, 99, 82, .12);
+      border-bottom: 1px solid rgba(235, 211, 186, .16);
     }
     .brand-mark {
       width: 38px;
@@ -68,23 +95,24 @@
     }
     .brand-kicker, .brand-name { display: block; margin: 0; }
     .brand-kicker {
-      color: #554c42;
+      color: #f0dfc9;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
     }
-    .brand-name { margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .brand-name { margin-top: 2px; color: #c5ad94; font-size: 10px; }
     .brand-badge {
       margin-left: auto;
       padding: 7px 10px;
-      border: 1px solid #e8dfd3;
+      border: 1px solid rgba(235, 211, 186, .2);
       border-radius: 999px;
-      color: #776d60;
-      background: rgba(255,255,255,.55);
+      color: #ead7bf;
+      background: rgba(30, 20, 15, .55);
       font-size: 9px;
       font-weight: 700;
       letter-spacing: .08em;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
     }
 
     .step-progress {
@@ -106,7 +134,7 @@
       flex-direction: column;
       align-items: center;
       gap: 7px;
-      color: #a39a8e;
+      color: #d3bda5;
       font-size: 10px;
       font-weight: 600;
       transition: color .2s ease;
@@ -119,7 +147,7 @@
       width: calc(100% - 34px);
       height: 1px;
       content: "";
-      background: #e1d9ce;
+      background: rgba(232, 210, 185, .3);
       transition: background .2s ease;
     }
     .progress-number {
@@ -127,10 +155,10 @@
       height: 33px;
       display: grid;
       place-items: center;
-      border: 1px solid #e1d9ce;
+      border: 1px solid rgba(232, 210, 185, .32);
       border-radius: 50%;
-      color: #8d8479;
-      background: var(--paper);
+      color: #ead7bf;
+      background: #3a291f;
       font-size: 10px;
       transition: all .2s ease;
     }
@@ -152,11 +180,14 @@
       justify-content: space-between;
       margin: 0 auto 24px;
       padding: 28px;
-      border: 1px solid rgba(112, 99, 82, .1);
-      border-radius: 26px;
-      background: rgba(255, 255, 255, .86);
-      box-shadow: 0 18px 55px rgba(62, 49, 34, .08), 0 2px 8px rgba(62, 49, 34, .03);
-      color: var(--ink);
+      border: 1px solid rgba(235, 211, 186, .16);
+      border-radius: 18px;
+      background:
+        radial-gradient(ellipse at 50% 0, rgba(190, 141, 98, .08), transparent 72%),
+        repeating-linear-gradient(0deg, rgba(255, 231, 203, .012) 0 1px, transparent 1px 4px),
+        #30231c;
+      box-shadow: 0 28px 60px rgba(0, 0, 0, .38), 0 8px 18px rgba(0, 0, 0, .24), inset 0 1px rgba(255,255,255,.035);
+      color: #f1e4d3;
     }
     .step-heading { padding-top: 0 !important; }
     .step-heading h1, .step-heading h2 {
@@ -173,9 +204,9 @@
       line-height: 1.6;
     }
     .cover-preview {
-      border: 5px solid white;
+      border: 5px solid #5b4535;
       border-radius: 17px;
-      box-shadow: 0 15px 32px rgba(52, 40, 26, .18);
+      box-shadow: 0 15px 32px rgba(0, 0, 0, .38);
     }
     .step-panel .cover-preview,
     #interactiveCardContainer { width: 100%; }
@@ -184,9 +215,10 @@
     }
     #storyViewport916 {
       max-height: min(66svh, 620px);
-      border: 5px solid white;
-      border-radius: 24px;
-      box-shadow: 0 16px 38px rgba(52, 40, 26, .2);
+    }
+    #storyTopCardMirror > #editableFrontCard,
+    #storyBottomCardMirror > #editableBackCard {
+      border-radius: 0;
     }
     .helper-copy {
       color: var(--muted) !important;
@@ -197,7 +229,7 @@
     .camera-action {
       width: 58px !important;
       height: 58px !important;
-      border: 5px solid #f4e9e2 !important;
+      border: 5px solid #3c291f !important;
       color: white !important;
       background: var(--accent) !important;
       box-shadow: 0 8px 18px rgba(157, 80, 58, .23) !important;
@@ -221,8 +253,8 @@
       min-height: 44px;
       border: 1px solid var(--line) !important;
       border-radius: 13px !important;
-      color: #665d53 !important;
-      background: #fff !important;
+      color: #ead7bf !important;
+      background: #493328 !important;
       font-size: 11px !important;
       font-weight: 600 !important;
     }
@@ -230,7 +262,7 @@
       padding: 10px 14px;
       border: 1px solid var(--line);
       border-radius: 13px;
-      background: #faf8f4;
+      background: #3c2b21;
     }
     .text-editor {
       width: 100%;
@@ -240,19 +272,19 @@
       padding: 16px;
       border: 1px solid var(--line);
       border-radius: 16px;
-      background: #fcfbf9;
+      background: #38281f;
     }
     .text-editor-heading {
       grid-column: 1 / -1;
       margin: 0;
-      color: #453e35;
+      color: #ead7bf;
       font-size: 12px;
       font-weight: 700;
     }
     .text-editor-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
     .text-editor-field.is-wide { grid-column: 1 / -1; }
     .text-editor-field label {
-      color: #71685e;
+      color: #c5ad94;
       font-size: 10px;
       font-weight: 600;
     }
@@ -261,11 +293,11 @@
       width: 100%;
       min-height: 40px;
       padding: 10px 11px;
-      border: 1px solid #e6dfd5;
+      border: 1px solid rgba(235, 211, 186, .22);
       border-radius: 10px;
       outline: none;
-      color: #332d25;
-      background: #fff;
+      color: #f1e4d3;
+      background: #241a15;
       font: inherit;
       font-size: 12px;
       user-select: text;
@@ -281,21 +313,21 @@
     .toolbar-action {
       border-color: var(--line) !important;
       border-radius: 14px !important;
-      color: #62594f !important;
-      background: #fff !important;
+      color: #ead7bf !important;
+      background: #493328 !important;
     }
     .modal-backdrop { background: rgba(36, 31, 26, .55) !important; }
     .modal-card {
-      border: 1px solid rgba(255,255,255,.7) !important;
+      border: 1px solid rgba(235, 211, 186, .18) !important;
       border-radius: 22px !important;
-      background: #fffdfa !important;
-      box-shadow: 0 24px 70px rgba(27, 21, 15, .24) !important;
+      background: #30231c !important;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .55) !important;
     }
-    .modal-card h3, .modal-card > div > span { color: var(--ink) !important; }
+    .modal-card h3, .modal-card > div > span { color: #f1e4d3 !important; }
     .modal-card .modal-secondary {
       border-color: var(--line) !important;
-      color: #62594f !important;
-      background: #f7f4ef !important;
+      color: #ead7bf !important;
+      background: #493328 !important;
     }
     button, label[title] { -webkit-tap-highlight-color: transparent; }
     button:focus-visible, label:focus-within {
@@ -303,11 +335,11 @@
       outline-offset: 3px;
     }
     @media (max-width: 480px) {
-      body.app-body { padding: 0 14px 22px; }
+      body.app-body { padding: 0 14px 22px; background-attachment: scroll; }
       .brand-header { padding-top: 17px; }
       .brand-badge { font-size: 8px; }
       .step-progress { margin: 16px auto 18px; }
-      .step-panel { min-height: 540px; padding: 23px 20px; border-radius: 22px; }
+      .step-panel { min-height: 540px; padding: 23px 20px; border-radius: 16px; }
       #step3View { min-height: 690px; }
       #storyViewport916 { max-height: min(61svh, 560px); }
       .text-editor { gap: 10px; padding: 13px; }
@@ -371,7 +403,7 @@
     <div class="brand-mark" aria-hidden="true"><i data-lucide="send" class="w-4 h-4"></i></div>
     <div>
       <span class="brand-kicker">Postcard Studio</span>
-      <p class="brand-name">by OSIS MK56 Jakarta</p>
+      <p class="brand-name">by OSISMK56 Jakarta</p>
     </div>
     <span class="brand-badge">MEMORY MAKER</span>
   </header>
@@ -409,10 +441,10 @@
 
       <!-- Live Title Preview -->
       <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10">
-        <h3 id="step1TitlePreview" class="font-bodoni text-2xl font-bold uppercase text-white tracking-widest drop-shadow-md">
+        <h3 id="step1TitlePreview" class="postcard-title uppercase text-white drop-shadow-md">
           SAN FRANCISCO
         </h3>
-        <p id="step1SubtitlePreview" class="font-playfair italic text-[11px] text-white/90 tracking-wider mt-0.5">
+        <p id="step1SubtitlePreview" class="postcard-date text-white/90 mt-1">
           DECEMBER 20TH, 2024
         </p>
       </div>
@@ -457,11 +489,11 @@
           <!-- Inline Editable Title -->
           <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10">
             <h1 id="frontTitleText" contenteditable="true" spellcheck="false" 
-                class="font-bodoni text-2xl sm:text-3xl font-bold uppercase text-white tracking-widest drop-shadow-lg px-2 py-0.5">
+                class="postcard-title uppercase text-white drop-shadow-lg px-2 py-0.5">
               SAN FRANCISCO
             </h1>
             <p id="frontSubtitleText" contenteditable="true" spellcheck="false" 
-               class="font-playfair italic text-[11px] text-white/90 tracking-wider mt-1 drop-shadow">
+               class="postcard-date text-white/90 mt-1 drop-shadow">
               DECEMBER 20TH, 2024
             </p>
           </div>
@@ -573,9 +605,14 @@
     </div>
 
     <!-- Next Step Pill Button -->
-    <button onclick="goToStep(3)" class="primary-action w-full flex items-center justify-center gap-2 px-4">
-      Atur latar &amp; simpan <i data-lucide="arrow-right" class="w-4 h-4"></i>
-    </button>
+    <div class="w-full grid grid-cols-2 gap-3">
+      <button onclick="goToStep(1)" class="secondary-action flex items-center justify-center gap-2 px-4">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali
+      </button>
+      <button onclick="goToStep(3)" class="primary-action flex items-center justify-center gap-2 px-4">
+        Atur latar &amp; simpan <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </button>
+    </div>
   </section>
 
 
@@ -587,7 +624,7 @@
     </div>
     
     <!-- 9:16 Instagram Story Preview Frame -->
-    <div id="storyViewport916" class="relative w-full max-w-[310px] aspect-[9/16] bg-zinc-950 overflow-hidden shadow-2xl flex flex-col items-center justify-center p-4 my-auto border border-zinc-800">
+    <div id="storyViewport916" class="relative w-full max-w-[310px] aspect-[9/16] bg-zinc-950 overflow-hidden shadow-2xl flex flex-col items-center justify-center p-4 my-auto">
       <!-- Background Image -->
       <img id="storyBgPhotoImg" src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1080&q=80" alt="Background" class="absolute inset-0 w-full h-full object-cover" crossorigin="anonymous">
       <div class="absolute inset-0 bg-black/15"></div>
@@ -618,6 +655,9 @@
       </button>
     </div>
 
+    <button onclick="goToStep(2)" class="secondary-action w-full flex items-center justify-center gap-2 px-4">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke edit pesan
+    </button>
   </section>
 
 
@@ -917,9 +957,18 @@
 
       html2canvas(storyViewport, {
         scale: 3,
+        width: 360,
+        height: 640,
         useCORS: true,
         allowTaint: true,
-        logging: false
+        logging: false,
+        onclone: (clonedDocument) => {
+          const clonedViewport = clonedDocument.getElementById('storyViewport916');
+          clonedViewport.style.width = '360px';
+          clonedViewport.style.height = '640px';
+          clonedViewport.style.maxWidth = 'none';
+          clonedViewport.style.maxHeight = 'none';
+        }
       }).then(canvas => {
         const link = document.createElement('a');
         link.download = `Postcard-Story-${Date.now()}.png`;
